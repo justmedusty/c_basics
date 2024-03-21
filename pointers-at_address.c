@@ -7,8 +7,8 @@ int main(void)
     //this allocates a memory address to store the integer 10
     int x = 10;
 
-    //however if you try to, as you would in a higher language, assign the value of x to the pointyer, you are just duplicating the value in memory
-    //You would want to address the specific memory address in which the value of x is located, you do this with address-of operatorp= &x;
+    //however if you try to, as you would in a higher language, assign the value of x to the another, you are just duplicating the value in memory
+    //You would want to address the specific memory address in which the value of x is located, you do this with address-of operator &x;
     int *pointer = &x; // = x;
 
 
