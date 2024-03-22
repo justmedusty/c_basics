@@ -10,7 +10,7 @@ struct LinkedList
 };
 
 //Basic linked list that can point to the next entry in the list by utilizing a pointer to anohter struct LinkedList
-int notmain(void)
+int main(void)
 {
 
     struct LinkedList* first = malloc(sizeof(struct LinkedList));

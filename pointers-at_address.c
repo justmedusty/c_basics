@@ -2,7 +2,7 @@
 // Created by dustyn on 3/21/24.
 //
 #include <stdio.h>
-int notmain2(void)
+int main(void)
 {
     //this allocates a memory address to store the integer 10
     int x = 10;
