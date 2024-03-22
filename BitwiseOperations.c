@@ -13,7 +13,7 @@ int main(void)
     const unsigned int c = a & b;
     printf("%d\n",c);
 
-    //We can also shift bits to the left or to the right this will multiplty a by 2^10 which should leave us with 327,680
+    //We can also shift bits to the left or to the right this will multiply a by 2^10 which should leave us with 327,680
     const int d = a << b;
     printf("%d\n",d);
 
@@ -29,6 +29,21 @@ int main(void)
     //this will result in 1111, 15 , the value of b, since no matter what one bit will be 1 dude to all 4 bits having a 1
     const int g = a | b;
     printf("%d\n",g);
+
+    //we can also usse bitchwise XOR which will return 1 if both bits are different, 0 if they are the same
+    // this will result in 0101,(5)
+    const int h = a ^ b;
+    printf("%d\n",h);
+
+    //lastly we have the NOT which will flip each bit to 0 from 1 and to 1 from 0
+    // this will result in 0101 again (5)
+    // but it doesn't! it's -11. Which means that although I am delcaring unsigned inegers, they are being interpretted
+    //as signed and using 2s compliment. This means there are 4 trailing 0s which are flipped, flipping the MSB turning the number
+    //negative
+    const unsigned int i = ~a;
+    printf("%d\n",i);
+
+
 
 
 }
