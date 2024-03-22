@@ -21,8 +21,14 @@ int main(void)
     const int e = a >> b;
     printf("%d\n",e);
 
-    //however we can do this to shave off some bits without shaving every single one, this shift one bit to the right so we should be left with 101 (5)
+    //however we can do this to shave off some bits withoout shaving every single one, this shift one bit to the right so we should be left with 101 (5)
     const int f = a >> 1;
     printf("%d\n",f);
+
+    //another thing we can do is bitwise OR which, as I'm sure you can guess, will compare each bit and return 1 if any is 1 or 0 if they are both 0
+    //this will result in 1111, 15 , the value of b, since no matter what one bit will be 1 dude to all 4 bits having a 1
+    const int g = a | b;
+    printf("%d\n",g);
+
 
 }
