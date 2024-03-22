@@ -4,4 +4,5 @@ project(c_basics C)
 set(CMAKE_C_STANDARD 11)
 
 add_executable(c_basics LinkedList.c
-        pointers-at_address.c)
+        pointers-at_address.c
+        BitwiseOperations.c)
