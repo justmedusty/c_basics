@@ -17,7 +17,7 @@ int main(void)
     const int d = a << b;
     printf("%d\n",d);
 
-    //We will shift these to the right which should leave us with 0 since we share shifting all of the bits out of existence.
+    //We will shift these to the right which should leave us with 0 since we share shifting all of the bits into the void.
     const int e = a >> b;
     printf("%d\n",e);
 
