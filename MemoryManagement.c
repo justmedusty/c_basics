@@ -63,5 +63,15 @@ int main(void)
     free(ptr_malloc);
     printf("----------------------\n");
 
+    //A short bit on stack memory
+    //The stack is generally fixed size, and the kernel will allocate stack size for each
+    //process. You do not need to worry about stack in C generally, however deep recursion
+    //can cause issues
+
+    //These 2 are put onto the stack, when this function invocation ends, they will be deallocated autoatically
+    int x = 10;
+
+    int y = 150;
+    // Unless you are working with a lot of recursion , you will seldom run into problems with stack space.
     return EXIT_SUCCESS;
 }
