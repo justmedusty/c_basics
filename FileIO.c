@@ -11,7 +11,7 @@
 #include <unistd.h>
 #define PATH_MAX 150
 
-int main()
+int fileio()
 {
     //file descriptor
     int fd;

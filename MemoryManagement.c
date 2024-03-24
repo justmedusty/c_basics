@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-int main(void)
+int memorymanagement(void)
 {
     //dynamically allocate memory for the size of an integer
     int* ptr_malloc = (int*)malloc(sizeof(int));

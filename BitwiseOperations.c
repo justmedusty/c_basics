@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main(void)
+int bitwiseoperations(void)
 {
     const unsigned int a = 0b1010; // 10 as binary
     const unsigned int b = 0b1111; //15 in binary

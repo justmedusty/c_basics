@@ -5,7 +5,7 @@
 #define TESTFUNCTION
 #define NUMBER 3
 #define MULTIPLY(x) ((x) * (x))
-int main(void)
+int preprocessordirectives(void)
 {
     //This will only compile if TESTFUNCTION is defined above
 #ifdef TESTFUNCTION

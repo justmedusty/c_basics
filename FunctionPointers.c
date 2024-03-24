@@ -9,7 +9,7 @@ int add(int a , int b)
 {
     return a + b;
 }
-int main()
+int functionpointers()
 {
     //This pointer function declared here will then be ..
     int(*operation)(int,int);
