@@ -2,6 +2,8 @@
 // Created by dustyn on 3/21/24.
 //
 #include <stdio.h>
+#include <stdlib.h>
+
 int pointers(void)
 {
     //this allocates a memory address to store the integer 10
@@ -18,6 +20,7 @@ int pointers(void)
 
     //notice when we set our 2nd pointer to 20, since it points to the address of pointer which points ot the address of x, this changes the value of x.
     printf("%d\n",x);
+    return EXIT_SUCCESS;
 
 
 }
