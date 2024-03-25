@@ -16,7 +16,6 @@
 
 
 int exitSysCall(){
-    //Get the proc
     printf("This is a heavy handed way to kill a process IMMEDIATELY");
     //Notice this will just immediately exit, this is because the output of printf in C is buffered and exit system call kills this process IMMEDIATELY
     //We can remedy this problem by flushing stdout!
