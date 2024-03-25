@@ -76,7 +76,7 @@ int memorymanagement(void) {
 #define MAX_LENGTH 15
 
 //Here is some dynamic allocation for an array no yet assigned values.
-int memorymanagementandpointerarithmetic() {
+int morememorymanagement() {
     int *ptr;
     ptr = malloc(MAX_LENGTH * sizeof(int));
     //Always check that the memory allocation was successful
@@ -102,6 +102,7 @@ int memorymanagementandpointerarithmetic() {
 #endif
 
     //Person struct with some pointers and age and name
+    //This can only point to one parent or one child but it is fine as an example
     struct Person {
         char name[15];
         int age;
@@ -116,22 +117,23 @@ int memorymanagementandpointerarithmetic() {
     for (int i = 0; i < FAMILY_SIZE; i++) {
         family[i].age = (i * i);
         strcpy(family[i].name, "BS Name");
-        if (i >= 4) {
+        if (i >= 3) {
+            family[i].child = &family[0];
             family[i].child = &family[1];
             family[i].child = &family[2];
-            family[i].child = &family[3];
             family[i].parent = NULL; // May their souls forever rest in peace
+            family[0].parent = &family[i];
             family[1].parent = &family[i];
             family[2].parent = &family[i];
-            family[3].parent = &family[i];
 
         } else {
+            //Else they are too young to have a child
             family[i].child = NULL;
         }
+
+
     }
-
     //Now let's traverse through this family and check out some pointer arithmetic, and pull some values out
-
     for (int i = 0; i < FAMILY_SIZE; i++) {
         if (family[i].parent != NULL) {
             printf("The person of age : %d has a parent of age %d\n", family[i].age, family[i].parent->age);
