@@ -16,7 +16,7 @@ int main(){
     int status ;
     //We will fill this struct to pass to getaddrinfo()
     struct addrinfo hints;
-    //This will point to the results of asking the kernel for
+    //This will point to the results of asking the kernel for information on the socket that we are looking for
     struct addrinfo *serverInfo;
     //Set memory to 0
     memset(&hints,0,sizeof(hints));
