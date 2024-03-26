@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/wait.h>
 #include <signal.h> // for kill() system call
 
 //We will get into some System calls here. System calls are the layer of asbtraction between the user-space and the kernel space how a program can interface with the linux kernel and
@@ -39,3 +40,55 @@ int pidAndKill(){
     kill(pid,1);
 
 }
+
+int forkingandwaiting(){
+    //Let's get these onto the stack for some basic math
+    signed int a = 5, b = 10;
+    printf("%d %s %d equals %d !\n",a,"plus",b,a+b);
+    printf("%d %s %d equals %d !\n",a,"minus",b,a-b);
+    printf("%d %s %d equals %d !\n",a,"multiplied by",b,a*b);
+
+    //The fork is very important in UNIX. The init process is the mother of all processes in UNIX, forking itself. EVERY SINGLE PROCESS CAN BE TRACED BACK TO INIT BY ITERATING THROUGH PPIDs !
+    pid_t pid = fork();
+
+    //If error code
+    if (pid < 0){
+        perror("An error occured\n");
+        //We will flush stdout just in case
+        fflush(stdout);
+        //Ask the kernel to exit immediately with exit code EXIT_FAILURE (1)
+        _exit(EXIT_FAILURE);
+    }
+    //If good (0)
+    else if(pid == 0){
+        printf("Child executing\n");
+        //flush because these _exit syscalls are much faster than the printf buffer
+        fflush(stdout);
+        //simulate a longer execution
+        sleep(3);
+        _exit(EXIT_SUCCESS);
+    }
+    else{
+        printf("Waiting for child execution to complete\n");
+        int status;
+        //Wait for the status of the execution, if there was an error print err child failed and exit on EXIT_FAILURE (1) code
+        pid_t child = wait(&status);
+        if(child == -1){
+            perror("Child Failed\n");
+            _exit(EXIT_FAILURE);
+        }
+        //Let the user know that the almighty kernel(alhamdulilah) has terminated the child process
+        printf("Child process with pid %d was terminated by the almighty kernel\n",child);
+    }
+
+    printf("Parent exiting...\n");
+
+    //Exit on Exit Success (0)
+    _exit(EXIT_SUCCESS);
+
+
+
+
+
+}
+
