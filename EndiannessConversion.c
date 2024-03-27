@@ -14,8 +14,9 @@
 int main(){
     //We will start with our little endian byte
     unsigned int littleEndian;
+    //initialize an empty 8 bit integer which we will iterate through below
     unsigned int bigEndian = 0b00000000;
-    //the number 213 in little endian format
+    //the number 213 (unsigned) in little endian format
     littleEndian = 0b11010101;
 
     //Now let's say we are transferring this data to a big endian system, the order of these bits need to be reversed!
@@ -28,7 +29,7 @@ int main(){
         //What we are doing is extracting each bit starting from the small endian LSB (the least significant bit) and moving it to the other side which is where the LSB is in a big endian byte.
         bigEndian |= ((littleEndian >> i)&1) << (7 -i);
     }
-    //This should print 171 if correct (0xb10101011)
-    printf("%d\n",bigEndian);
+    //This should print 171 (unsigned) if correct (0xb10101011)
+    printf("%u\n",bigEndian);
     //EH VOILÀ ! 171 ! would you look at that, we have now just converted a small endian byte to a big endian byte ! This can be very useful for transferring data from a small endian to a big endian system!
 }
