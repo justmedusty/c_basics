@@ -28,7 +28,7 @@ int fileio()
     //path to file
     char file_path[PATH_MAX];
 
-    //Instantiting a pointer to the memory address storing the result of get home (your home dir)
+    //Instantiating a pointer to the memory address storing the result of get home (your home dir)
     const char* home_env = getenv("HOME");
 
     //Make sure this succeeded
@@ -76,7 +76,7 @@ int fileio()
         perror("Error reading from from file");
         return EXIT_FAILURE;
     }
-
+    //This is a system call, which calls the kernel and tells it to write some data to disk
     write(STDOUT_FILENO, buffer, bytes_read);
     close(fd);
 
