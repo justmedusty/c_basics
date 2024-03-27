@@ -12,4 +12,5 @@ PreProcessorDirectives.c
 PointerArithmetic.c
 MemoryManagement.c
         UnixSystemCalls.c
-        FetchUnixStreamSocketAddress.c)
+        FetchUnixStreamSocketAddress.c
+        EndiannessConversion.c)
