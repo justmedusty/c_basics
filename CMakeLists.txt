@@ -13,4 +13,5 @@ PointerArithmetic.c
 MemoryManagement.c
         BasicUnixSystemCalls.c
         FetchUnixStreamSocketAddress.c
-        EndiannessConversion.c)
+        EndiannessConversion.c
+        UnixStreamSocketServer.c)
