@@ -99,6 +99,10 @@ int main(void){
             perror("Error binding socket");
             continue;
         }
+        //Here we will print out the server IP by using inet_ntop (network -> presentation), with AF_INET for either ipv4 or v6, the ip address in the current entry in the linked list as pointed to by p* , assign it to ipaddr below
+        char ipaddr[INET_ADDRSTRLEN];
+        inet_ntop(AF_INET, &p->ai_addr->sa_data, ipaddr, INET_ADDRSTRLEN);
+        printf("Server IP bound to %s\n", ipaddr );
         break;
     }
     //We do not need serverInfo anymore since we have our p struct, we can free this memory now
