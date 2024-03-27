@@ -145,7 +145,7 @@ int main(void){
         inet_ntop(clientAddress.ss_family, get_in_addr((struct sockaddr * )&clientAddress), s,sizeof(s));
 
         printf("Server got connection from %s \n",s);
-        //If not a fork (aka the parent process)
+        //Fork a new process for each incoming connection
         if(!fork()){
             //Close child process file descriptor
             close(sockfd);
