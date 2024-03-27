@@ -61,7 +61,7 @@ int main(void){
     int yes = 1;
     //This is a string of length INET6_ADDRSTRLEN
     char s[INET6_ADDRSTRLEN];
-    //This will be used to hold the return value of our intitial getaddrinfo() system call
+    //This will be used to hold the return value of our initial getaddrinfo() system call
     int returnVal;
 
     //Memset hints memory address to be all 0
@@ -73,7 +73,7 @@ int main(void){
     //AI_PASSIVE flag to indicate we are lazy and want the kernel to fill in the ip info for us
     hints.ai_flags = AI_PASSIVE;
 
-    //This will utilize the getaddrinfo systemccall to get the linked list of results from the kernel, and print to stderr if there is an issue
+    //This will utilize the getaddrinfo system call to get the linked list of results from the kernel, and print to stderr if there is an issue
     if ((returnVal = getaddrinfo(NULL, PORT, &hints, &serverInfo)) != 0){
         fprintf(stderr,"getaddrinfo failed: %s\n", gai_strerror(returnVal));
         return EXIT_FAILURE;
@@ -81,7 +81,7 @@ int main(void){
     //This will assign our pointer p which we declared above, run until it's null, and increment the list by dereferencing the ai_next field of the struct
     for(p = serverInfo;p!=NULL;p = p->ai_next){
 
-        //Here we will get the server socket file descriptor by dereferencing the 3 fields , fanily,socket type, and protocol and passing them to the socket system call
+        //Here we will get the server socket file descriptor by dereferencing the 3 fields , family,socket type, and protocol and passing them to the socket system call
         //We will check for a -1 value which of course means that there was an error and print to stderr
         if((sockfd = socket(p->ai_family,p->ai_socktype,p->ai_protocol)) == -1){
             perror("Server Error getting socket file descriptor");
@@ -103,7 +103,7 @@ int main(void){
     }
     //We do not need serverInfo anymore since we have our p struct, we can free this memory now
     freeaddrinfo(serverInfo);
-    //If p struct is null, the server did not bind properly and we need to exit
+    //If p struct is null, the server did not bind properly, and we need to exit
     if(p==NULL){
         fprintf(stderr,"Server failed to bind");
         exit(EXIT_FAILURE);
