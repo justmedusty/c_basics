@@ -24,10 +24,10 @@ int main(){
     for(int i = 0;i < 8;i++){
         //Confusing right? What we are doing here involves 4 bitwise operations. We need our little endian number (0b11010101) to be big endian (0xb10101011) Reversing the order of the bits
         //We are using a bitwise OR, a leftward bitshift a bitwise AND , and a rightward bitshift.
-        //What are doing is extracting each bit starting from the small endian LSB (least significant bit) and moving it to the other side which is where the LSB is in a big endian byte.
+        //What we are doing is extracting each bit starting from the small endian LSB (the least significant bit) and moving it to the other side which is where the LSB is in a big endian byte.
         bigEndian |= ((littleEndian >> i)&1) << (7 -i);
     }
     //This should print 171 if correct (0xb10101011)
     printf("%d\n",bigEndian);
-    //EH VOILA ! 171 ! would you look at that, we have now just converted a small endian byte to a big endian byte ! This can be very useful for transferring data from a small endian to a big endian system!
+    //EH VOILÀ ! 171 ! would you look at that, we have now just converted a small endian byte to a big endian byte ! This can be very useful for transferring data from a small endian to a big endian system!
 }
