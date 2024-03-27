@@ -17,7 +17,7 @@ int functionpointers()
     operation = &add;
 
     //We can see this in action here!
-    printf("We will add 2 nunbers using a pointer to a function ! 5 + 3 = %d",operation(5,3));
+    printf("We will add 2 numbers using a pointer to a function ! 5 + 3 = %d",operation(5,3));
     return EXIT_SUCCESS;
 
 }
