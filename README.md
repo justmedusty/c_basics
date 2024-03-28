@@ -1,1 +1,1 @@
-Welcome to my C repository for getting the hang of the language as well as it's interfaces with UNIX/POSIX operating systems. Going to document everything as well as I can so that you can hopefully follow along !
+Welcome to my C repository for getting the hang of the language as well as its interfaces with UNIX/POSIX operating systems. Going to document everything as well as I can so that you can hopefully follow along !
