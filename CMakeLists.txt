@@ -16,4 +16,5 @@ MemoryManagement.c
         EndiannessConversion.c
         UnixStreamSocketServer.c
         UnixStreamSocketClient.c
-        UnixDatagramSocketServer.c)
+        UnixDatagramSocketServer.c
+        UnixDatagramSocketClient.c)
