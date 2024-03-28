@@ -11,7 +11,7 @@
 //However representing this in a big endian system it would be represented like this : 1000 0000
 //It is flipped! Our original byte , 0000 0001 would be either 127 or 256 on a big endian system depending on whether this integer is signed or not
 //Big endian is not very common , mostly on older systems , however it does exist and is something that occasionally becomes relevant
-int main(){
+int endiannessConversion(){
     //We will start with our little endian byte
     unsigned int littleEndian;
     //initialize an empty 8 bit integer which we will iterate through below
