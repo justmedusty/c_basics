@@ -20,4 +20,5 @@ MemoryManagement.c
         UnixDatagramSocketClient.c
         UnixMutex.c
         UnixSemaphores.c
-        UnixFileEventWatching.c)
+        UnixFileEventWatching.c
+        PosixThreads.c)

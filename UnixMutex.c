@@ -15,7 +15,7 @@ int counter = 0;
 pthread_mutex_t mutex;
 
 //This is the function that each concurrent thread will execute, they will each access the global variable counter, not very safe! Sounds like race conditions to me. We can fix that with a mutex.
-void *thread_function(void *arg) {
+void *my_thread_function(void *arg) {
     int i;
     //We will lock our mutex, disallowing other processes and threads from accessing this function until it is unlocked
     pthread_mutex_lock(&mutex);
@@ -53,7 +53,7 @@ int unixMutex() {
         thread_args[i] = i;
         //NULL attribute cause we don't need it, thread at i spot in array ,start thread_function with args thread_args (just the number i to number the thread for id purposes)
         //standard error processing of course
-        if (pthread_create(&threads[i], NULL, thread_function, (void *) &thread_args[i]) != 0) {
+        if (pthread_create(&threads[i], NULL, my_thread_function, (void *) &thread_args[i]) != 0) {
             fprintf(stderr, "Failed to create thread");
             exit(EXIT_FAILURE);
         }

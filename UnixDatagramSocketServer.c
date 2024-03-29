@@ -30,7 +30,7 @@ void *get_in_addr(struct sockaddr *sa) {
 }
 
 //Our datagram server main function
-int main(void) {
+int unixDatagramSocketServer(void) {
     //Socket file descriptor which will be assigned by the kernel and how we will identify the socket
     int sockFd;
     //3 addr info hints which we will fill in a little information in hints, then fill serverInfo with the address to the results, and then use pointer to iterate through the linked list

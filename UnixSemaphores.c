@@ -65,7 +65,7 @@ void *thread_routine(void *arg) {
 }
 
 
-int main(){
+int unixSemaphores(){
     //posix thread array of length THREAD_COUNT specified above (we chose 15 for this)
     pthread_t threads[THREAD_COUNT];
     //The thread argument array, this just tells the thread function what number this thread has been assigned
