@@ -18,4 +18,5 @@ MemoryManagement.c
         UnixStreamSocketClient.c
         UnixDatagramSocketServer.c
         UnixDatagramSocketClient.c
-        UnixMutex.c)
+        UnixMutex.c
+        UnixSemaphores.c)
