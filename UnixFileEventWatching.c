@@ -14,9 +14,9 @@
 int IeventQueue = -1;
 int IeventStatus = -1;
 int readLength;
-int main(int argc, char** argv)
+int unixFileEventWatching(int argc, char** argv)
 {
-    //We're going to define our watch masks , which will indicate what state the file is currently in, being accessed, delected, modified, moved etc using the constant values defined in inotify.h header file
+    //We're going to define our watch masks , which will indicate what state the file is currently in, being accessed, deleted, modified, moved etc using the constant values defined in inotify.h header file
     const uint32_t watchMask = IN_CREATE | IN_DELETE | IN_ACCESS | IN_CLOSE_WRITE | IN_MODIFY | IN_MOVE_SELF;
     //Base path for accessing the file in question
     char *basePath = NULL;
@@ -28,7 +28,7 @@ int main(int argc, char** argv)
     char *notificationMessage;
 
 
-    //4 byte buffer
+    //4 kilobyte buffer
     char buffer[4096];
     //We will do an arg check to make sure the path is there, if not exit on exit failure
     if (argc < 2){
