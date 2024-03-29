@@ -32,7 +32,7 @@ sem_t semaphore;
 void *thread_routine(void *arg) {
 
 
-    //This will automatically decrement the semaphore for us, and if the semaphore value is currently 0 , the thread must wait until
+    //This will automatically decrement the semaphore for us, and if the semaphore value is currently 0 , the thread must wait until it is of non-zero value
     sem_wait(&semaphore);
 
     //We will shift binary 2 bits to the left and print a message
@@ -66,14 +66,14 @@ void *thread_routine(void *arg) {
 
 
 int main(){
-    //posix thread array of length THREAD_COUNT specified above (we chose 10 for this)
+    //posix thread array of length THREAD_COUNT specified above (we chose 15 for this)
     pthread_t threads[THREAD_COUNT];
     //The thread argument array, this just tells the thread function what number this thread has been assigned
     int thread_args[THREAD_COUNT];
     //The integer we will use for looping and incrementing
     int i;
 
-    //We will attempt to initialize the semaphore, it will be of value semaphore init val (2) and the 0 for pshared indicates that this is shared amongst threads not processes,
+    //We will attempt to initialize the semaphore, it will be of value semaphore init val (2) and the 0 for pshared indicates that this is shared amongst THREADS not PROCESSES,
     //If we want to share amongst processes we would turn that 0 to a 1.
     //Do error checking accordingly
     //On error sem_init will set errno so we will print out errnos new value on failure
