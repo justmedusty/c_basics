@@ -31,7 +31,7 @@ void *thread_function(void *arg) {
     pthread_exit(NULL);
 }
 
-int main() {
+int unixMutex() {
     //posix thread array of length THREAD_COUNT specified above (we chose 10 for this)
     pthread_t threads[THREAD_COUNT];
     //The thread argument array, this just tells the thread function what number this thread has been assigned
