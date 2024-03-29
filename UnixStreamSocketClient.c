@@ -17,18 +17,18 @@
 #define PORT "6969"
 //And define the max bytes for a message , 256 sounds like a good number
 #define MAX_BYTES 256
-
+/*
 //Same pointer function as the family, this will just spit out the memory address for either an IPv4 or an IPv6 address
-void *get_in_addr (struct sockaddr *sa){
+void *get_in_addr (struct sockaddr *sockAddr){
     //If the family is of IF_INET(IPv4), cast it to an IPV4 struct with IPv4 address
-    if (sa->sa_family == AF_INET){
-        return &(((struct sockaddr_in*)sa)->sin_addr);
+    if (sockAddr->sa_family == AF_INET){
+        return &(((struct sockaddr_in*)sockAddr)->sin_addr);
     }
     //Else return memory address of IPv6 address cast to IPv6 struct
-    return &(((struct sockaddr_in6*)sa)->sin6_addr);
+    return &(((struct sockaddr_in6*)sockAddr)->sin6_addr);
 }
 
-
+*/
 //Our stream socket client , if you want to run this you'll need to change it to main
 //argc is number of arguments, argv is array of arguments
 int streamSocketClient(int argc, char* argv[]){
@@ -89,7 +89,7 @@ int streamSocketClient(int argc, char* argv[]){
         return 2;
     }
     //Here we will get the presenation of the server address because we do not want binary, we want a char array. We do this with the inet_ntop(network to presentation) system call !
-    inet_ntop(p->ai_family, get_in_addr((struct sockaddr *)p->ai_addr),string,sizeof string);
+    inet_ntop(p->ai_family, get_in_addr((struct sockaddr *) p->ai_addr), string, sizeof string);
     //print out the string address of the socket we are connecting to
     printf("Client is connecting to %s\n",string);
 
