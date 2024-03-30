@@ -21,4 +21,5 @@ MemoryManagement.c
         UnixMutex.c
         UnixSemaphores.c
         UnixFileEventWatching.c
-        PosixThreads.c)
+        PosixThreads.c
+        UnixSocketsForIPC.c)
