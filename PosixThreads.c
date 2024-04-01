@@ -20,7 +20,7 @@ void *thread_function(void* arg){
 }
 
 //Our main method from which the magic happens baby!
-int main(){
+int posixThreads(){
     //We will instantiate our threads at size MAX_THREADS (5) as defined above
     pthread_t threads[MAX_THREADS];
     //This will just be the number we assign each thread chronologically
