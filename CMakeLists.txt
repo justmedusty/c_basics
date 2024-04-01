@@ -23,4 +23,5 @@ MemoryManagement.c
         UnixFileEventWatching.c
         PosixThreads.c
         UnixSocketsForIPC.c
-        TelnetServerPollingFileDescriptorsWithUnixStreamStreamSockets.c)
+        TelnetServerPollingFileDescriptorsWithUnixStreamStreamSockets.c
+        UnixPortability.c)
