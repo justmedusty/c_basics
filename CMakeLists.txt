@@ -26,4 +26,5 @@ MemoryManagement.c
         TelnetServerPollingFileDescriptorsWithUnixStreamStreamSockets.c
         UnixPortability.c
         UnixSocketSendAllBytes.c
-        QuickAndDirtyPortableFloatingPoint.c)
+        QuickAndDirtyPortableFloatingPoint.c
+        UnixDatagramSocketBroadcaster.c)
