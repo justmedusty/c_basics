@@ -24,4 +24,5 @@ MemoryManagement.c
         PosixThreads.c
         UnixSocketsForIPC.c
         TelnetServerPollingFileDescriptorsWithUnixStreamStreamSockets.c
-        UnixPortability.c)
+        UnixPortability.c
+        UnixSocketSendAllBytes.c)
