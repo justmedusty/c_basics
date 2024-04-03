@@ -125,7 +125,7 @@ int get_listener_socketFd() {
 }
 
 //Main function where we will utilize select as our block handler. Remember if you don't use something like poll or select, sends and recvs will block indefinitely until they are ready! This is less than ideal
-int unixTelnetWithSelect() {
+int main() {
 
     //We will define our two file descriptor sets to select() on, we will make 2 the select set and the master set since select will manipulate the set so we want a clean set that we can have and only select on the select set to keep everything clean
     fd_set select_set, master_set;
@@ -207,6 +207,7 @@ int unixTelnetWithSelect() {
                                 }
                             }
                         }
+                        memset(&buffer,0,sizeof buffer);
 
                     }
                     //Else this is not the listener and is a client
@@ -233,6 +234,7 @@ int unixTelnetWithSelect() {
                                     }
                                 }
                             }
+                            memset(&buffer,0,sizeof buffer);
                             //Else an error occurred
                         } else {
                             perror("recv");
@@ -252,8 +254,9 @@ int unixTelnetWithSelect() {
 
                                 }
                             }
-
+                            memset(&buffer,0,sizeof buffer);
                         }
+
                     }
                 }
 
