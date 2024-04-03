@@ -138,13 +138,27 @@ int main() {
                                                                                       (struct sockaddr *) &client_address),
                                                                               clientIP, INET6_ADDRSTRLEN));
 
+                        strlcpy(buffer,"User joined chat\n",sizeof "User joined chat\n");
+                        bytes_received = sizeof "User joined chat\n";
+                        for (int j = 0; j < fd_max; j++) {
+                            if (FD_ISSET(j, &master_set)) {
+                                if (j != listener && j != i) {
+                                    if (send(j, buffer, bytes_received, 0) == -1) {
+                                        perror("send");
+
+                                    }
+
+                                }
+                            }
+                        }
+
                     }
                 } else {
                     if ((bytes_received = recv(i, buffer, sizeof buffer, 0)) <= 0) {
                         if (bytes_received == 0) {
                             printf("Client socket %d disconnected\n", i);
-                            strlcpy(buffer,"User left chat",sizeof "User left chat");
-                            bytes_received = sizeof "User left chat";
+                            strlcpy(buffer,"User left chat\n",sizeof "User left chat\n");
+                            bytes_received = sizeof "User left chat\n";
                             for (int j = 0; j < fd_max; j++) {
                                 if (FD_ISSET(j, &master_set)) {
                                     if (j != listener && j != i) {
