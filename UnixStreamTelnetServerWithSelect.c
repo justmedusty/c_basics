@@ -129,41 +129,56 @@ int main() {
 
     //We will define our two file descriptor sets to select() on, we will make 2 the select set and the master set since select will manipulate the set so we want a clean set that we can have and only select on the select set to keep everything clean
     fd_set select_set, master_set;
+
     //The max file descriptor value, this will help with the loop so we can stop at the highest file descriptor value and restart the loop
     int fd_max;
+
     //Our listener socket
     int listener;
+
     //What will be the length of our client socket address
     socklen_t socklen;
+
     //this will store our client address, using sockaddr_storage since it is big enough for anything and can be cast later
     struct sockaddr_storage client_address;
+
     //the buffer which will store the server message, note if a message is longer than the buffer it will be truncated
     char buffer[BUFFER_SIZE];
     //return value of select call
+
     int return_value;
     //This will hold the new client sockets file descriptor when we accept new connections
+
     int newFd;
     //Bytes received which will be used to tell if a client has disconnected
+
     int bytes_received;
+
     //This will hold the client IP addr, of size INET_6 because it is big enough to hold either
     char clientIP[INET6_ADDRSTRLEN];
 
     //We will get our listener and assign the file descriptor to our listener variable, using the function we wrote above
     listener = get_listener_socketFd();
+
     //fd_max is listeners file descriptor which just means that we don't want to iterate higher than the highest file descriptor
     fd_max = listener;
+
     //We will zero both sets to make sure they are ready to go
     FD_ZERO(&select_set);
     FD_ZERO(&master_set);
+
     //We will add our listener to the master set
     FD_SET(listener, &master_set);
 
     //Start our infinite loop
     for (;;) {
+
         //Select set assign the values in our master set , remember since select() will modify the set it is smart to work off a "worker set" if you will and have a clean master set for storing your FDs untouched.
         select_set = master_set;
+
         //We will call select with our number of fds set at max + 1, we will pass select set as a reading set since this is a server not a client
         //handle errors accordingly
+
         if ((return_value = select(fd_max + 1, &select_set, NULL, NULL, NULL)) <= 0) {
             strerror(return_value);
             exit(EXIT_FAILURE);
@@ -254,7 +269,6 @@ int main() {
 
                                 }
                             }
-                            memset(&buffer,0,sizeof buffer);
                         }
 
                     }
