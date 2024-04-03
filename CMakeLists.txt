@@ -27,4 +27,5 @@ MemoryManagement.c
         UnixPortability.c
         UnixSocketSendAllBytes.c
         QuickAndDirtyPortableFloatingPoint.c
-        UnixDatagramSocketBroadcaster.c)
+        UnixDatagramSocketBroadcaster.c
+        UnixStreamTelnetServerWithSelect.c)
