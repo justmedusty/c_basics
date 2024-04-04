@@ -152,7 +152,7 @@ int main() {
     int newFd;
     //Bytes received which will be used to tell if a client has disconnected
 
-    int bytes_received;
+    size_t bytes_received;
 
     //This will hold the client IP addr, of size INET_6 because it is big enough to hold either
     char clientIP[INET6_ADDRSTRLEN];
@@ -231,7 +231,6 @@ int main() {
                                 }
                             }
                         }
-                        memset(&buffer,0,sizeof buffer);
 
                     }
                     //Else this is not the listener and is a client
@@ -258,7 +257,6 @@ int main() {
                                     }
                                 }
                             }
-                            memset(&buffer,0,sizeof buffer);
                             //Else an error occurred
                         } else {
                             perror("recv");
