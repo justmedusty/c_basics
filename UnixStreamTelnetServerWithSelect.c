@@ -144,8 +144,12 @@ int main() {
 
     //the buffer which will store the server message, note if a message is longer than the buffer it will be truncated
     char buffer[BUFFER_SIZE];
-    //return value of select call
 
+    memset(&buffer,0,sizeof buffer);
+
+    char server_message[BUFFER_SIZE];
+
+    //return value of select call
     int return_value;
     //This will hold the new client sockets file descriptor when we accept new connections
 
@@ -160,9 +164,11 @@ int main() {
     //We will get our listener and assign the file descriptor to our listener variable, using the function we wrote above
     listener = get_listener_socketFd();
 
+    //This is out timeout value, it will time out the select() call and move on
     struct timeval tv;
+    //half million microseconds (half second) and 5 seconds so 5 and a half seconds!
     tv.tv_sec = 5;
-    tv.tv_usec = 50;
+    tv.tv_usec = 500000;
 
     //fd_max is listeners file descriptor which just means that we don't want to iterate higher than the highest file descriptor
     fd_max = listener;
@@ -176,6 +182,9 @@ int main() {
 
     //Start our infinite loop
     for (;;) {
+
+        //We want to be sure to zero both the buffer and the server message to prevent any abnormalities or undefined behaviours
+        memset(&server_message,0,sizeof server_message);
         memset(&buffer,0,sizeof buffer);
 
         //Select set assign the values in our master set , remember since select() will modify the set it is smart to work off a "worker set" if you will and have a clean master set for storing your FDs untouched.
@@ -183,33 +192,42 @@ int main() {
 
         //We will call select with our number of fds set at max + 1, we will pass select set as a reading set since this is a server not a client
         //handle errors accordingly
-
-        if ((return_value = select(fd_max + 1, &select_set, NULL, NULL, &tv)) <= 0) {
+        if ((return_value = select(fd_max + 1, &select_set,NULL, NULL, &tv)) <= 0) {
             //This means timeout, we don't want to exit on failure in a timeout
             if(return_value == 0){
                 continue;
             }
+            //If it wasn't a timeout an error has occured ,print the error and close the program
             strerror(return_value);
             exit(EXIT_FAILURE);
         }
 
         //Start main select loop, loop through file descriptors and if we find one in the set...
         for (int i = 0; i <= fd_max + 1; i++) {
+
             if (FD_ISSET(i, &select_set)) {
+
                 //Check if it is the listener, if it is this means there is a connection waiting, and we need to accept it. We will assign the return value of accept (the file descriptor if no error occurs) to newFd
                 if (i == listener) {
+
                     socklen = sizeof client_address;
                     newFd = accept(listener, (struct sockaddr *) &client_address, &socklen);
+
                     //Standard error checking
                     if (newFd == -1) {
+
                         //Print the error using strerror
                         strerror(errno);
+
                     } else {
+
                         //Else we will add this new Fd to the master set, and if the file descriptor is larger than the max this is our new max
                         FD_SET(newFd, &master_set);
                         if (newFd > fd_max) {
+
                             fd_max = newFd;
                         }
+
 
                         //We will print the new connection and their ip address derived from the inet network to presentation call
                         printf("Server : New Connection from %s\n", inet_ntop(client_address.ss_family,
@@ -217,13 +235,15 @@ int main() {
                                                                                       (struct sockaddr *) &client_address),
                                                                               clientIP, INET6_ADDRSTRLEN));
 
-                        sprintf(buffer,"User %d joined\n",newFd);
+
+                        //We'll go ahead and use sprintf which will let us also put the file descriptor into the server message
+                        sprintf(server_message,"User %d joined\n",newFd);
 
                         //Here we will loop through all FDs in the set and as long as it is not the listener or the user that just joined, we will send the message that we just stored in the buffer
                         for (int j = 0; j <= fd_max; j++) {
                             if (FD_ISSET(j, &master_set)) {
-                                if (j != listener && j != i) {
-                                    if (send(j, buffer, sizeof buffer, 0) == -1) {
+                                if (j != listener && j != newFd) {
+                                    if (send(j, server_message, sizeof server_message, 0) == -1) {
                                         perror("send");
 
                                     }
@@ -233,6 +253,7 @@ int main() {
                         }
 
                     }
+
                     //Else this is not the listener and is a client
                 } else {
 
@@ -242,8 +263,8 @@ int main() {
                         //If it is a hangup message then print to console, and then send a message to each other connected user in the chat, obviously excluding the listener and the one hanging up
                         if (bytes_received == 0) {
                             printf("Client socket %d disconnected\n", i);
-                            //Copy our server message into the buffer, let users know that a user has left the chat
-                            strlcpy(buffer, "User left chat\n", sizeof "User left chat\n");
+                            //Copy our server message into the server message, let users know that a user has left the chat
+                            sprintf(server_message,"User %d left\n",i);
 
                             //Our server-wide broadcast to the other users connected, not the listener or the user that left
                             for (int j = 0; j <= fd_max; j++) {
@@ -270,7 +291,7 @@ int main() {
                         for (int j = 0; j <= fd_max; j++) {
                             if (FD_ISSET(j, &master_set)) {
                                 if (j != listener && j != i) {
-                                    if (send(j, buffer, sizeof bytes_received, 0) == -1) {
+                                    if (send(j, buffer, bytes_received, 0) == -1) {
                                         perror("send");
                                     }
 
