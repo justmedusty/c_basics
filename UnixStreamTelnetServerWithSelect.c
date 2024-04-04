@@ -160,6 +160,10 @@ int main() {
     //We will get our listener and assign the file descriptor to our listener variable, using the function we wrote above
     listener = get_listener_socketFd();
 
+    struct timeval tv;
+    tv.tv_sec = 3;
+    tv.tv_usec = 500000;
+
     //fd_max is listeners file descriptor which just means that we don't want to iterate higher than the highest file descriptor
     fd_max = listener;
 
@@ -179,7 +183,11 @@ int main() {
         //We will call select with our number of fds set at max + 1, we will pass select set as a reading set since this is a server not a client
         //handle errors accordingly
 
-        if ((return_value = select(fd_max + 1, &select_set, NULL, NULL, NULL)) <= 0) {
+        if ((return_value = select(fd_max + 1, &select_set, NULL, NULL, &tv)) <= 0) {
+            //This means timeout, we don't want to exit on failure in a timeout
+            if(return_value == 0){
+                continue;
+            }
             strerror(return_value);
             exit(EXIT_FAILURE);
         }
@@ -263,7 +271,7 @@ int main() {
                         for (int j = 0; j < fd_max; j++) {
                             if (FD_ISSET(j, &master_set)) {
                                 if (j != listener && j != i) {
-                                    if (send(j, buffer, sizeof buffer, 0) == -1) {
+                                    if (send(j, buffer, sizeof bytes_received, 0) == -1) {
                                         perror("send");
                                     }
 
@@ -272,6 +280,7 @@ int main() {
                         }
 
                     }
+                    memset(&buffer,0,sizeof buffer);
                 }
 
             }
