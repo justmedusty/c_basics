@@ -161,8 +161,8 @@ int main() {
     listener = get_listener_socketFd();
 
     struct timeval tv;
-    tv.tv_sec = 3;
-    tv.tv_usec = 500000;
+    tv.tv_sec = 5;
+    tv.tv_usec = 50;
 
     //fd_max is listeners file descriptor which just means that we don't want to iterate higher than the highest file descriptor
     fd_max = listener;
@@ -176,6 +176,7 @@ int main() {
 
     //Start our infinite loop
     for (;;) {
+        memset(&buffer,0,sizeof buffer);
 
         //Select set assign the values in our master set , remember since select() will modify the set it is smart to work off a "worker set" if you will and have a clean master set for storing your FDs untouched.
         select_set = master_set;
@@ -193,7 +194,7 @@ int main() {
         }
 
         //Start main select loop, loop through file descriptors and if we find one in the set...
-        for (int i = 0; i <= fd_max; i++) {
+        for (int i = 0; i <= fd_max + 1; i++) {
             if (FD_ISSET(i, &select_set)) {
                 //Check if it is the listener, if it is this means there is a connection waiting, and we need to accept it. We will assign the return value of accept (the file descriptor if no error occurs) to newFd
                 if (i == listener) {
@@ -216,10 +217,10 @@ int main() {
                                                                                       (struct sockaddr *) &client_address),
                                                                               clientIP, INET6_ADDRSTRLEN));
 
-                        //And we will copy a message letting others that a user joined into the buffer
-                        strlcpy(buffer, "User joined chat\n", sizeof "User joined chat\n");
+                        sprintf(buffer,"User %d joined\n",newFd);
+
                         //Here we will loop through all FDs in the set and as long as it is not the listener or the user that just joined, we will send the message that we just stored in the buffer
-                        for (int j = 0; j < fd_max; j++) {
+                        for (int j = 0; j <= fd_max; j++) {
                             if (FD_ISSET(j, &master_set)) {
                                 if (j != listener && j != i) {
                                     if (send(j, buffer, sizeof buffer, 0) == -1) {
@@ -246,7 +247,7 @@ int main() {
                             strlcpy(buffer, "User left chat\n", sizeof "User left chat\n");
 
                             //Our server-wide broadcast to the other users connected, not the listener or the user that left
-                            for (int j = 0; j < fd_max; j++) {
+                            for (int j = 0; j <= fd_max; j++) {
                                 if (FD_ISSET(j, &master_set)) {
                                     if (j != listener && j != i) {
                                         if (send(j, buffer, sizeof buffer, 0) == -1) {
@@ -268,7 +269,7 @@ int main() {
 
                         //Else this is a client with a message to send, so we will send it to all others , the message was written into the buffer so it will broadcast to the other users right out of the buffer
                     } else {
-                        for (int j = 0; j < fd_max; j++) {
+                        for (int j = 0; j <= fd_max; j++) {
                             if (FD_ISSET(j, &master_set)) {
                                 if (j != listener && j != i) {
                                     if (send(j, buffer, sizeof bytes_received, 0) == -1) {
@@ -280,7 +281,6 @@ int main() {
                         }
 
                     }
-                    memset(&buffer,0,sizeof buffer);
                 }
 
             }
