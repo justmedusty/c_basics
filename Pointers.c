@@ -16,9 +16,10 @@ int pointers(void)
 
     //You can utilize pointers to other pointers as well which can be useful in some situations
     int **point2point = &pointer;
+    //We can dereference the pointer to a pointer with the ** notation which will get the actual value stored at the address by following the pointers to the address
     **point2point = 20;
 
-    //notice when we set our 2nd pointer to 20, since it points to the address of pointer which points ot the address of x, this changes the value of x.
+    //Now x is changed because we dereferenced the pointer to the other pointer which then changed the initial value x at it's memory address
     printf("%d\n",x);
     return EXIT_SUCCESS;
 
