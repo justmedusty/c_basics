@@ -30,4 +30,5 @@ MemoryManagement.c
         UnixDatagramSocketBroadcaster.c
         UnixStreamTelnetServerWithSelect.c
         Setbuf&Setvbuf.c
-        StreamOrientation.c)
+        StreamOrientation.c
+        Putchar&Ungetc.c)
