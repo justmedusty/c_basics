@@ -14,7 +14,7 @@
 #include <errno.h>
 #include <string.h>
 
-int main(){
+int setbuf_and_setvbuf(){
 
     //Our very own buffer for I/O streams
     char buffer[BUFSIZ];
