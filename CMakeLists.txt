@@ -31,4 +31,7 @@ MemoryManagement.c
         UnixStreamTelnetServerWithSelect.c
         Setbuf&Setvbuf.c
         StreamOrientation.c
-        Putchar&Ungetc.c)
+        Putchar&Ungetc.c
+        HeaderIntroduction.c
+        HeaderIntroduction.h
+        UsingOurHeaderFile.c)
