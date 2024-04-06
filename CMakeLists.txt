@@ -34,4 +34,5 @@ MemoryManagement.c
         Putchar&Ungetc.c
         HeaderIntroduction.c
         HeaderIntroduction.h
-        UsingOurHeaderFile.c)
+        UsingOurHeaderFile.c
+        UnixTelnetClient.c)

@@ -7,7 +7,7 @@
 #include "stdlib.h"
 #include "string.h"
 
-int main(){
+int usingHeader(){
     /*
      * We are just going to instantiate a buffer of size 128 bytes
      * Copy our string into the buffer so that there is something in it
