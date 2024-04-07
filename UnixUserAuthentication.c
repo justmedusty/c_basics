@@ -29,8 +29,8 @@ int authenticate_user(const char *username, const char *password) {
         fprintf(stderr, "User %s not found\n", username);
         exit(EXIT_FAILURE);
     }
-
-    encrypted_password = crypt(password, spw->sp_pwdp);
+    //doing this for compilation reasons i cant run other programs in my ide since the linker isnt working properly and have to do this manually
+    encrypted_password = ""; //crypt(password, spw->sp_pwdp);
     printf("Stored:%s\n",spw->sp_pwdp);
     printf("Given:%s\n",encrypted_password);
 
@@ -51,7 +51,7 @@ int authenticate_user(const char *username, const char *password) {
 
 }
 
-int main(){
+int userAuth(){
 
     char username[MAX_USERNAME_LENGTH];
     char password[MAX_PASSWORD_LENGTH];

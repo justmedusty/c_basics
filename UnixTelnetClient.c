@@ -73,7 +73,7 @@ void *thread_read(const int *sockFd) {
  * Name is chosen via the output file name giving during compilation, I am giving mine
  * on my local machine the name telchat
  */
-int telchatmain(int argc, char *argv[]) {
+int telnetClient(int argc, char *argv[]) {
 
     //Ensure proper usage of this program
     if (argc < 3) {
@@ -142,7 +142,6 @@ int telchatmain(int argc, char *argv[]) {
 
     //Our main infinite loop
     for (;;) {
-        printf(">");
         //prevent funny business, clear the memory space
         memset(buf, 0, sizeof buf);
 
@@ -155,8 +154,8 @@ int telchatmain(int argc, char *argv[]) {
         //Null terminate
         buf[len] = '\0';
 
-        //Attempt to send the message, error handle accordingly
-        if ((send(sockFd, buf, sizeof buf, 0)) < 0) {
+        //Attempt to send the message, error handle accordingly, need to make sure to use strlen not size of since that causes issues.
+        if ((send(sockFd, buf, strlen(buf), 0)) < 0) {
             strerror(errno);
             exit(EXIT_FAILURE);
         }
