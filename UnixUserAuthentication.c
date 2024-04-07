@@ -10,6 +10,9 @@
 /*
  * We can use the shadow.h and check the user entry from /etc/shadow to verify a users identity with the password, this could be used to create your own implemenation of ssh
  * or any other kind of remote shell operations. We will use shadow.h to get the user
+ *
+ * For some reason this doesn't link properly when run in CLion so I need to compile it from the command line with the
+ * -lcrypt link flag to make sure it is linked
  */
 
 #define MAX_USERNAME_LENGTH 100
