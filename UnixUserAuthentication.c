@@ -8,12 +8,13 @@
 #include <shadow.h>
 
 /*
- * We can use the pwd.h and check the user entry from /etc/shadow to verify a users identity with the password, this could used to create your own implemenation of ssh
+ * We can use the shadow.h and check the user entry from /etc/shadow to verify a users identity with the password, this could be used to create your own implemenation of ssh
  * or any other kind of remote shell operations. We will use shadow.h to get the user
  */
 
 #define MAX_USERNAME_LENGTH 100
 #define MAX_PASSWORD_LENGTH 100
+
 int authenticate_user(const char *username, const char *password) {
     struct spwd *spw;
     char *encrypted_password;
@@ -62,7 +63,7 @@ int main(){
 
 
     if(authenticate_user(username,password) == 0){
-       //handle remote shell stuff here;
+       //handle remote shell stuff here
         return EXIT_SUCCESS;
     }else{
         //do not handle remote shell stuff
