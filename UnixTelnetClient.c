@@ -73,7 +73,7 @@ void *thread_read(const int *sockFd) {
  * Name is chosen via the output file name giving during compilation, I am giving mine
  * on my local machine the name telchat
  */
-int main(int argc, char *argv[]) {
+int telchatmain(int argc, char *argv[]) {
 
     //Ensure proper usage of this program
     if (argc < 3) {
