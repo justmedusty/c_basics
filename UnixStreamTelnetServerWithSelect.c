@@ -125,7 +125,7 @@ int get_listener_socketFd() {
 }
 
 //Main function where we will utilize select as our block handler. Remember if you don't use something like poll or select, sends and recvs will block indefinitely until they are ready! This is less than ideal
-int telnetSelectServer() {
+int telnetservermain() {
 
     //We will define our two file descriptor sets to select() on, we will make 2 the select set and the master set since select will manipulate the set so we want a clean set that we can have and only select on the select set to keep everything clean
     fd_set select_set, master_set;
@@ -270,7 +270,7 @@ int telnetSelectServer() {
                             for (int j = 0; j <= fd_max; j++) {
                                 if (FD_ISSET(j, &master_set)) {
                                     if (j != listener && j != i) {
-                                        if (send(j, buffer, sizeof buffer, 0) == -1) {
+                                        if (send(j, server_message, strlen(server_message), 0) == -1) {
                                             perror("send");
 
                                         }
@@ -296,7 +296,6 @@ int telnetSelectServer() {
                          */
                         char message[BUFFER_SIZE];
                         strcpy(message,buffer);
-                        memset(&buffer,0,sizeof buffer);
                         char prepend_string[10];
                         sprintf(prepend_string,"User %d:",i);
                         sprintf(buffer,"%s %s",prepend_string,message);
