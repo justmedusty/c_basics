@@ -24,14 +24,19 @@
  */
 
 void *thread_read(const int *sockFd) {
+
     //This will hold the bytes read which will tell us if there is A: an error B: a server disconnect and C: where to stop reading in the buffer, we will null terminate that spot in the buffer
     ssize_t bytes_read;
+
     //Our separate buffer for reading
     char read_buf[MAX_BYTES];
+
     //Infinite loop
     for (;;) {
+
         //Memset to prevent any funny business , just in case
         memset(read_buf, 0, sizeof read_buf);
+
         //Attempt recv, error handle appropriately or handle a disconnect
         bytes_read = recv(*sockFd, read_buf, sizeof read_buf, 0);
 
@@ -39,19 +44,22 @@ void *thread_read(const int *sockFd) {
             strerror(errno);
             exit(EXIT_FAILURE);
         }
+
         else if (bytes_read == 0) {
+
             //We'll call _exit directly here you know why? Because I feel like it.
             //We have to flush the stdout stream manually since the system call does not flush the buffer
             fprintf(stdout, "Server disconnected\n");
+
             fflush(stdout);
+
             _exit(EXIT_SUCCESS);
         }
 
         //Null terminate that bitch
         read_buf[bytes_read] = '\0';
-
         //print the message to the users console
-        printf("server> %s", read_buf);
+        printf("%s", read_buf);
     }
 }
 
@@ -134,7 +142,7 @@ int main(int argc, char *argv[]) {
 
     //Our main infinite loop
     for (;;) {
-        printf("me >");
+        printf(">");
         //prevent funny business, clear the memory space
         memset(buf, 0, sizeof buf);
 
