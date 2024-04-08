@@ -4,7 +4,7 @@
 
 
 /*
- * There are many signals in the UNIX which we will get into over many different files in this repo. One of the files we have already seen is the SIGCLD signal in our stream server to let us know a child has died which can use
+ * There are many signals in the UNIX environment which we will get into over many different files in this repo. One of the files we have already seen is the SIGCLD signal in our stream server to let us know a child has died which can use
  * to come in and clean up the process to not leave zombie processes around. The SIGALRM signal is something we can set and which will schedule a SIGALRM signal in X seconds which we can then handle
  * using signal() system call. There are many familiar things that are just using a SIGALRM signal under the hood
  * Things that make use of SIGARLM
