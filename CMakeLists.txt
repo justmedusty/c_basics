@@ -36,4 +36,5 @@ MemoryManagement.c
         HeaderIntroduction.h
         UsingOurHeaderFile.c
         UnixTelnetClient.c
-        UnixUserAuthentication.c)
+        UnixUserAuthentication.c
+        AlarmSignal.c)
