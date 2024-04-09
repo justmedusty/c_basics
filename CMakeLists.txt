@@ -38,4 +38,5 @@ MemoryManagement.c
         UnixTelnetClient.c
         UnixUserAuthentication.c
         AlarmSignal.c
-        Forking.c)
+        Forking.c
+        Pipes.c)
