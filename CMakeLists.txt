@@ -39,4 +39,5 @@ MemoryManagement.c
         UnixUserAuthentication.c
         AlarmSignal.c
         Forking.c
-        Pipes.c)
+        Pipes.c
+        FIFO.c)
