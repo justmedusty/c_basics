@@ -16,7 +16,7 @@
 #include "stdlib.h"
 #include "unistd.h"
 
-int main() {
+int processgroups() {
 
 
     int childpid = fork();
