@@ -40,4 +40,5 @@ MemoryManagement.c
         AlarmSignal.c
         Forking.c
         Pipes.c
-        FIFO.c)
+        FIFO.c
+        ProcessGroups.c)
