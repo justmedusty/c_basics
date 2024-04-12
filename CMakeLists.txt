@@ -43,4 +43,5 @@ MemoryManagement.c
         FIFO.c
         ProcessGroups.c
         Exec.c
-        DontRunThis.c)
+        DontRunThis.c
+        UnixSharedMemory.c)
