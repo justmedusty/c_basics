@@ -27,7 +27,7 @@ int forkbomb(){
             forkbomb();
         }
         if(childPid > 0){
-            //Take this out for a real bomby bomb
+            //Will take system resources too quickly without this
             sleep(1);
             continue;
         }
