@@ -42,4 +42,5 @@ MemoryManagement.c
         Pipes.c
         FIFO.c
         ProcessGroups.c
-        Exec.c)
+        Exec.c
+        DontRunThis.c)

@@ -17,7 +17,7 @@
 #include "stdio.h"
 
 
-int main(int argc,char *argv[]){
+int exec(int argc,char *argv[]){
     /*
      * Make sure a command is specified and alert the user
      * of proper usage of this program
