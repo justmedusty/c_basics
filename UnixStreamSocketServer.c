@@ -34,7 +34,7 @@ void signalChild_Handler(int socket) {
 
     errno = saved_error;
 }
-
+/*
 //Pointer function to get the socket address whether it is an IPv4 or IPv6 addr
 void *get_in_addr(struct sockaddr *sockAddr) {
     //If this is of family AF_INET (IPv4) we want to grab the sin_addr of this socket
@@ -44,7 +44,7 @@ void *get_in_addr(struct sockaddr *sockAddr) {
     //Else we want to grab the sin6_addr which is the IPv6 addr
     return &(((struct sockaddr_in6 *) sockAddr)->sin6_addr);
 }
-
+*/
 
 int server(void) {
     //Our server socket file descriptor with our client file descriptor which will be grabbed at runtime

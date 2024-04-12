@@ -18,7 +18,7 @@
 
 #define PORT "6969"
 #define MAX_BYTES 256
-
+/*
 //Same function in the other files, just will get us our address whether it is IPv4 or IPv6
 void *get_in_addr(struct sockaddr *sa) {
     //If the family is of IF_INET(IPv4), cast it to an IPV4 struct with IPv4 address
@@ -28,7 +28,7 @@ void *get_in_addr(struct sockaddr *sa) {
     //Else return memory address of IPv6 address cast to IPv6 struct
     return &(((struct sockaddr_in6 *) sa)->sin6_addr);
 }
-
+*/
 //Our datagram server main function
 int unixDatagramSocketServer(void) {
     //Socket file descriptor which will be assigned by the kernel and how we will identify the socket

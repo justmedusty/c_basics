@@ -28,8 +28,8 @@ int forkbomb(){
         }
         if(childPid > 0){
             //Take this out for a real bomby bomb
-            wait(NULL);
-            EXIT_SUCCESS;
+            sleep(1);
+            continue;
         }
 
 
