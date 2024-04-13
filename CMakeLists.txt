@@ -44,4 +44,5 @@ MemoryManagement.c
         ProcessGroups.c
         Exec.c
         DontRunThis.c
-        UnixSharedMemory.c)
+        UnixSharedMemory.c
+        MessageQueues.c)
