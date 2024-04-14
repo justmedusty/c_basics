@@ -41,7 +41,7 @@ struct mbuf {
     char mtext[MSG_SIZE];
 } message;
 
-int main() {
+int message_queues() {
 
     //The key which will help us create our message queue
     key_t key;

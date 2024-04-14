@@ -45,4 +45,6 @@ MemoryManagement.c
         Exec.c
         DontRunThis.c
         UnixSharedMemory.c
-        MessageQueues.c)
+        SystemVMessageQueues.c
+        StackAllocation.c
+        Gotos.c)
