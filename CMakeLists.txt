@@ -47,4 +47,5 @@ MemoryManagement.c
         UnixSharedMemory.c
         SystemVMessageQueues.c
         StackAllocation.c
-        Gotos.c)
+        Gotos.c
+        MemoryMapping.c)
