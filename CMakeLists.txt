@@ -48,4 +48,5 @@ MemoryManagement.c
         SystemVMessageQueues.c
         StackAllocation.c
         Gotos.c
-        MemoryMapping.c)
+        MemoryMapping.c
+        ControllingTerminal.c)

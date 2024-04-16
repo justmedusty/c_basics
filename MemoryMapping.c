@@ -22,7 +22,7 @@
 #include "fcntl.h"
 #include "string.h"
 
-int main(){
+int memoryMapping(){
     //The address which will hold the pointer to our newly mapped memory
     char *address;
     //Fd of the file we're going to work with
