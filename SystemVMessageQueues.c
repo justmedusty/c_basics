@@ -64,7 +64,7 @@ int message_queues() {
         perror("fork");
         exit(EXIT_FAILURE);
     }
-    //In the child process we want to load up a message struct with a message we wil send into the queue with the type 1
+    //In the child process, we want to load up a message struct with a message we wil send into the queue with the type 1
     if (child_pid == 0) {
         //this is the child
         message.mtype = 1;

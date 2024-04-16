@@ -52,4 +52,5 @@ MemoryManagement.c
         ControllingTerminal.c
         MemoryResidence.c
         MichaelKerriskCode/get_num.c
-        MichaelKerriskCode/get_num.h)
+        MichaelKerriskCode/get_num.h
+        ElfFiles/ProgramToBeTraced.c)
