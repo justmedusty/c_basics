@@ -49,4 +49,7 @@ MemoryManagement.c
         StackAllocation.c
         Gotos.c
         MemoryMapping.c
-        ControllingTerminal.c)
+        ControllingTerminal.c
+        MemoryResidence.c
+        MichaelKerriskCode/get_num.c
+        MichaelKerriskCode/get_num.h)
