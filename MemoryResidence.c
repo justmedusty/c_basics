@@ -5,6 +5,12 @@
 /*
  * This program demonstrates memory-residence information about pages in the virtual address range
  * and locks specific pages in memory using the mincore() and mlock() system calls.
+ *
+ * Locking memory pages is a useful tool as it allows you to manually prevent a page from being swapped to disk.
+ * When a page is swapped to disk and subsequently accessed again, the CPU will respond with a page fault since this
+ * page of memory does not physically exist in RAM. From here, the kernel will take over and it will load the page into physical memory
+ * again from the disk. This is very time-consuming, and with any computing that is time-sensitive, you may want to lock
+ * your important memory pages to prevent them from being swapped to disk.
  */
 
 #include <unistd.h>
