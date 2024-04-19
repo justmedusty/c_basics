@@ -68,10 +68,4 @@ int exec(int argc,char *argv[]){
     }
 
 
-
-
-
-
-
-
 }

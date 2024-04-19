@@ -24,7 +24,7 @@
 
 /*
  * Now polling is important, it is one of 3 ways to handle incoming messages on your sockets
- * by default when iterating through sockets, it will block indefinately until you get something
+ * by default when iterating through sockets, it will block indefinitely until you get something
  * which is obviously not ideal at all. Polling allows you to wait for an event that lets you know
  * there is something ready to be read, or wrote depending on your needs. Here we will go through a
  * basic telnet server which users can telnet to and each message they send is broadcast to all other members

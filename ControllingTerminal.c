@@ -17,7 +17,7 @@
 #include "errno.h"
 
 
-int main(){
+int controllingTerminal(){
     pid_t pid = getpid();
     pid_t pgrp = getpgid(pid);
     int fd = open("/dev/tty",O_RDWR);

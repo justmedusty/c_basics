@@ -63,7 +63,7 @@ static void displayMincore(char *addr, size_t length) {
 }
 
 // Main function
-int main(int argc, char *argv[]) {
+int memory_residence(int argc, char *argv[]) {
 
     char *addr;
     size_t len, lockLen;
