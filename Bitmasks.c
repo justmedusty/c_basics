@@ -11,8 +11,8 @@
 int main(){
     /*
      * We're going to set the 3rd most significant bit to one, we can check whether this one bit is set by
-     * bitwise AND alongside (1 << 5) which takes 1 and moves it 5 bits to the left leaving us with the same value (0010-0000)
-     * The bitwise AND will then return 1 if that bit is set, and 0 if it is not! We can also set bits with a bitwise OR , or clear it with a bitwise NOT
+     * bitwise AND alongside (1 << 5) which takes 1 and moves it 5 bits to the left leaving us with the same value (0010 0000)
+     * The bitwise AND will then return 32 (the integer value) if that bit is set, and 0 if it is not! We can also set bits with a bitwise OR , or clear it with a bitwise NOT
      */
     u_int8_t binary = 0b00100000;
     int result = binary & (1 << 5);
