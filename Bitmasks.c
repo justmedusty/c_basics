@@ -48,4 +48,13 @@ int main(){
     binary &= ~(1 << 2);
     printf("result %d\n",binary);
 
+
+    /*
+     * We can also unset bits by bitwise ANDing a 0 in that particular position, like this :
+     */
+
+    binary &= (0 << 5);
+    printf("result %d\n",binary);
+
+
 }
