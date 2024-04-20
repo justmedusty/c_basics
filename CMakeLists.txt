@@ -55,4 +55,5 @@ MemoryManagement.c
         MichaelKerriskCode/get_num.h
         ElfFiles/ProgramToBeTraced.c
         GettingAndModifyingLocationInFile.c
-        UnixRecordLocking.c)
+        UnixRecordLocking.c
+        Bitmasks.c)
