@@ -29,6 +29,7 @@ int main(){
 
     /*
      * We'll add an extra 1 to our bitmask because why!
+     * The 1<<0 is redundant you can just put 1 as you can see below
      */
     binary |= (1 << 0);
     printf("result %d\n",binary);
