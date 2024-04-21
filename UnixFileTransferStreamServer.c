@@ -139,9 +139,6 @@ int main(){
     for(;;){
         int poll_count = poll(pollfds,fd_count, -1);
 
-        memset(&buffer,0,sizeof buffer);
-        memset(&bytes,0,sizeof bytes);
-
         if(poll_count < 0){
             perror("poll");
             exit(EXIT_FAILURE);
@@ -150,9 +147,9 @@ int main(){
         for (int (i) = 0; (i) < fd_count; ++(i)) {
 
             if(pollfds[i].revents == POLLIN){
-                printf("POLLIN\n");
+                client_addr_len = sizeof client_address;
                 if(pollfds[i].fd == listener){
-                    new_fd = accept(listener,(struct sockaddr*)&client_address,&client_addr_len);
+                    new_fd = accept(listener,(struct sockaddr* )&client_address,&client_addr_len);
                     if(new_fd < 0){
                         perror("accept");
                         close(new_fd);
@@ -179,7 +176,6 @@ int main(){
  */
                 } else{
 
-                    printf("Got one\n");
                     FILE *file = fopen("/home/dustyn/file.txt", "wb");
                     if (file == NULL) {
                         perror("fopen");
@@ -192,14 +188,17 @@ int main(){
                             perror("fwrite");
                         }
                     }
+                    perror("recv");
+                    perror("fwrite");
 
                     if (bytes == -1) {
                         perror("recv");
-                        // Handle error
+
                     }
 
                     if (bytes == 0) {
                         printf("Socket %d disconnected\n", pollfds[i].fd);
+                        close(pollfds[i].fd);
                         del_from_poll_fds(&pollfds, i, &fd_count);
                         fclose(file);
                         break;

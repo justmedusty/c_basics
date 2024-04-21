@@ -11,6 +11,8 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include "unistd.h"
+#include "sys/stat.h"
+
 #define BUFFSIZE 4096
 int main1(int argc, char *argv[]) {
 
@@ -64,24 +66,39 @@ int main1(int argc, char *argv[]) {
 
 
 
-    ssize_t bytes_read;
+    size_t bytes_read;
+    struct stat stat1;
+
+    if(stat(argv[2],&stat1) == -1){
+        perror("stat");
+        exit(EXIT_FAILURE);
+    }
+    size_t byte_total = 0;
     while ((bytes_read = fread(buffer, sizeof(char), BUFFSIZE, file)) > 0) {
+
         ssize_t bytes_sent = send(sock_fd, buffer, bytes_read, 0);
         if (bytes_sent == -1) {
             perror("Error sending data over socket");
             exit(EXIT_FAILURE);
         }
+        byte_total += bytes_read;
     }
-    printf("sent file\n");
-
+    if(byte_total >= stat1.st_size) {
+        printf("file sent\n");
+    }
     if (ferror(file)) {
         perror("Error reading file");
         exit(EXIT_FAILURE);
     }
 
+    close(sock_fd);
+
+
     fclose(file);
 
     exit(EXIT_SUCCESS);
+
+
 
 
 }
