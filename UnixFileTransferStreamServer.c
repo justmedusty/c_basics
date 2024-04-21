@@ -101,11 +101,11 @@ void add_to_poll_fds(struct pollfd *pollfds[], int newFd ,int *fd_count,int *fd_
 }
 
 void del_from_poll_fds(struct pollfd *pollfds[], int index, int *fd_count){
-    printf("we get here\n");
-    *pollfds[index] = pollfds[*fd_count];
+    pollfds[index] = pollfds[*fd_count - 1];
     (*fd_count)--;
 
 }
+
 
 int main(){
     int fd_count;
