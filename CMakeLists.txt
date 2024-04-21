@@ -56,4 +56,6 @@ MemoryManagement.c
         ElfFiles/ProgramToBeTraced.c
         GettingAndModifyingLocationInFile.c
         UnixRecordLocking.c
-        Bitmasks.c)
+        Bitmasks.c
+        UnixFileTransferStreamServer.c
+        UnixFileTransferStreamClient.c)
