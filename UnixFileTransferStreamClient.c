@@ -38,6 +38,13 @@ int main1(int argc, char *argv[]) {
             perror("Couldnt make socket and get file descriptor from kernel\n");
             continue;
         }
+
+        if (connect(sock_fd, pointer->ai_addr, pointer->ai_addrlen) == -1) {
+            close(sock_fd);
+            perror("Connection failed");
+            continue;
+        }
+
         break;
     }
 
@@ -45,6 +52,7 @@ int main1(int argc, char *argv[]) {
         fprintf(stderr, "Error in creating socket\n");
         exit(EXIT_FAILURE);
     }
+
     freeaddrinfo(server);
 
     FILE *file = fopen(argv[2], "rb");
@@ -53,6 +61,8 @@ int main1(int argc, char *argv[]) {
         exit(EXIT_FAILURE);
     }
     printf("Sending file\n");
+
+
 
     ssize_t bytes_read;
     while ((bytes_read = fread(buffer, sizeof(char), BUFFSIZE, file)) > 0) {

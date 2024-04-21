@@ -118,6 +118,7 @@ int main(){
     socklen_t client_addr_len;
     char buffer[BUFFSIZE];
     size_t bytes;
+    char client_ip[INET6_ADDRSTRLEN];
 
 
     if(pollfds == NULL){
@@ -157,9 +158,10 @@ int main(){
                         close(new_fd);
                         continue;
                     }
-                    char client_ip[INET6_ADDRSTRLEN];
 
-                    printf("New connection on socket %d from address %s\n",new_fd,    inet_ntop(client_address.ss_family,get_internet_address((struct sockaddr *) &client_address), client_ip, INET6_ADDRSTRLEN));
+                    inet_ntop(client_address.ss_family,get_internet_address((struct sockaddr *) &client_address), client_ip, INET6_ADDRSTRLEN);
+
+                    printf("New connection on socket %d from address %s\n",new_fd, client_ip);
 
                     add_to_poll_fds(&pollfds,new_fd,&fd_count,&fd_size);
                     strcpy(buffer,"You are now connected to the file transfer server\n");
@@ -176,20 +178,30 @@ int main(){
  * The client will allow
  */
                 } else{
-                    printf("Got one");
-                    FILE *file = fopen("/home/dustyn/file.txt" , "wb");
 
-                    while((bytes = recv(pollfds[i].fd,&buffer,BUFFSIZE,0)) > 0){
-                        fwrite(&buffer,sizeof(char),bytes,file);
+                    printf("Got one\n");
+                    FILE *file = fopen("/home/dustyn/file.txt", "wb");
+                    if (file == NULL) {
+                        perror("fopen");
+                        // Handle error
                     }
 
-                    if(bytes == -1){
+                    while ((bytes = recv(pollfds[i].fd, buffer, BUFFSIZE, 0)) > 0) {
+                        size_t bytes_written = fwrite(buffer, sizeof(char), bytes, file);
+                        if (bytes_written != bytes) {
+                            perror("fwrite");
+                        }
+                    }
+
+                    if (bytes == -1) {
                         perror("recv");
-                        continue;
+                        // Handle error
                     }
-                    if(bytes == 0){
-                        printf("Socket %d disconnected\n",pollfds[i].fd);
-                        del_from_poll_fds(&pollfds,i, &fd_count);
+
+                    if (bytes == 0) {
+                        printf("Socket %d disconnected\n", pollfds[i].fd);
+                        del_from_poll_fds(&pollfds, i, &fd_count);
+                        fclose(file);
                         break;
                     }
 
