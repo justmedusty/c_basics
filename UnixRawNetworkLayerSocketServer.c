@@ -22,6 +22,12 @@
 #define HEADER_SIZE 256
 
 /*
+ * I AM MOVING THIS INTO ITS OWN REPO TO WORK ON THIS IS NOT FINISHED.
+ *
+ * I WILL UPDATE THIS WHEN I AM FINISHED SINCE IT IS MUCH LARGER THAN I INITIALLY REALIZED
+ */
+
+/*
  * These will be macros that will be used in message headers to signify to the other side of the association that
  * we have acknowledged, received bad data, disconnected, and our timeout value as well
  */
@@ -145,7 +151,7 @@ int get_listener() {
     int yes = 1;
 
     hints.ai_socktype = SOCK_RAW;
-    hints.ai_family = AF_UNSPEC;
+    hints.ai_family = AF_INET;
     hints.ai_flags = AI_PASSIVE;
     hints.ai_protocol = IPPROTO_RAW;
     int return_value;
