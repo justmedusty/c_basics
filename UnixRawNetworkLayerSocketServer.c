@@ -14,6 +14,7 @@
 #include "netinet/in.h"
 #include "errno.h"
 #include "string.h"
+#include "netinet/ip.h"
 
 #define PORT "6969"
 #define BACKLOG 15
@@ -25,7 +26,7 @@
  * we have acknowledged, received bad data, disconnected, and our timeout value as well
  */
 
-#define ACK "ACKNOWLEDGE"
+#define ACKNOWLEDGE "ACK"
 #define CORRUPTION "BAD_DATA"
 #define CLOSE "DISCONNECT"
 #define TIMEOUT_MICROSECONDS 5000000 // 5 seconds
@@ -48,6 +49,77 @@
  *
  * This is more advanced, so I am assuming you know what you are looking at.
 */
+
+typedef struct Header {
+    uint16_t checksum;
+    uint16_t sequence;
+
+} Header;
+
+typedef struct Packet {
+    struct iphdr ip_header;
+    struct iovec iov[2];
+} Packet;
+
+/*
+ * This is a standard algorithm for IP checksums.
+ */
+unsigned short checksum(void *b, int len) {
+    // Cast the input pointer to an unsigned short pointer
+    unsigned short *buf = b;
+
+    // Initialize the sum variable
+    unsigned int sum = 0;
+
+    // Declare a variable to hold the checksum result
+    unsigned short result;
+
+    // Iterate over the data buffer, summing up 16-bit words
+    for (sum = 0; len > 1; len -= 2) {
+        sum += *buf++; // Add the value pointed to by buf to sum, then move buf to the next 16-bit word
+    }
+
+    // If the length is odd, add the last byte separately
+    if (len == 1) {
+        sum += *(unsigned char*)buf; // Add the value of the last byte to sum
+    }
+
+    // Add any carry bits to the lower 16 bits of sum
+    sum = (sum >> 16) + (sum & 0xFFFF);
+
+    // Add carry from the addition above to the lower 16 bits of sum
+    sum += (sum >> 16);
+
+    // Take the one's complement of sum to obtain the checksum result
+    result = ~sum;
+
+    // Return the checksum result
+    return result;
+}
+
+Packet* allocatePacket(){
+    Packet *packet = (Packet *) malloc(sizeof (Packet));
+
+    if(packet == NULL){
+        perror("malloc");
+        return NULL;
+    }
+    packet->iov[0].iov_base = malloc(HEADER_SIZE);
+    packet->iov[0].iov_len = HEADER_SIZE;
+    packet->iov[1].iov_base = malloc(PACKET_SIZE);
+    packet->iov[1].iov_len = PACKET_SIZE;
+
+    if( packet->iov[0].iov_base == NULL ||  packet->iov[1].iov_base == NULL){
+        perror("malloc");
+        free(packet->iov[0].iov_base);
+        free(packet->iov[1].iov_base);
+        free(packet);
+        return NULL;
+    }
+
+    return packet;
+
+}
 
 void *get_internet_addresses(struct sockaddr *sock_address) {
 
@@ -151,7 +223,7 @@ uint16_t calculate_checksum(char *data[], size_t length) {
  * It will return either 0 or -1, checksum good, or checksum not good.
  */
 
-uint8_t compare_checksum(char *data[], size_t length, uint16_t received_checksum) {
+uint8_t compare_checksum(char data[], size_t length, uint16_t received_checksum) {
 
     uint16_t new_checksum = calculate_checksum(&data, length);
     if ((new_checksum ^ received_checksum) != 0) {
@@ -161,6 +233,27 @@ uint8_t compare_checksum(char *data[], size_t length, uint16_t received_checksum
     }
 }
 
+
+// Function to handle ACK event
+void handle_ack(int socket) {
+    // Implement ACK handling logic
+}
+
+
+void handle_corruption(int socket, char *data, size_t length, uint16_t received_checksum) {
+    uint16_t checksum = calculate_checksum(&data,length);
+    uint16_t header = htons(checksum);
+    struct iovec iov[2];
+    iov[0].iov_base = &header;
+    iov[0].iov_len =
+
+
+}
+
+// Function to handle close event
+void handle_close(int socket) {
+
+}
 /*
  * This is our conn handler function; since we are using raw sockets, there is no transport layer. WE are the transport layer. We will do
  * some basic headers to get some metadata about the incoming messages. There will be no retransmission automatically this is all done by the
@@ -181,7 +274,7 @@ void handle_client_connection(int socket) {
     struct msghdr;
     struct iovec iov[2];
     uint16_t checksum;
-    const char welcome_msg[] = "Welcome to the raw socket server, we are building our own transport layer on top of the IP / network layer of the OSI !";
+    const char welcome_msg[] = "Welcome to the raw socket server, we are building our own transport layer on top of the IP/network layer of the OSI !";
     checksum = (&welcome_msg, strlen(welcome_msg));
     uint16_t header = htons(checksum);
     iov[0].iov_base = &header;
