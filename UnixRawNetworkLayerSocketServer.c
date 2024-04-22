@@ -9,6 +9,7 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include "poll.h"
+#include "netinet/in.h"
 
 #define PORT "6969"
 #define BACKLOG 15
@@ -43,6 +44,7 @@ int get_listener(){
 
     int listener;
     struct addrinfo hints,*server,*pointer;
+    int yes = 1;
 
     hints.ai_socktype = SOCK_RAW;
     hints.ai_family = AF_UNSPEC;
@@ -60,6 +62,8 @@ int get_listener(){
             perror("socket");
             continue;
         }
+
+        setsockopt(listener, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int));
 
         if(bind(listener, pointer->ai_addr,pointer->ai_addrlen) < 0) {
             perror("bind");
@@ -86,6 +90,13 @@ int get_listener(){
 
 }
 
+void handle_client_connection(int socket){
+    struct msghdr;
+    struct iovec iov[5];
+
+
+}
+
 
 int main(){
 
@@ -93,12 +104,44 @@ int main(){
     char buffer[PACKETSIZE];
     int new_fd;
     struct sockaddr_storage client_address;
+    socklen_t addr_len;
     struct pollfd poll_listen;
 
     listener = get_listener();
 
     if (listener <= 0){
         exit(EXIT_FAILURE);
+    }
+
+    poll_listen.fd = listener;
+    poll_listen.events = POLLIN;
+
+
+    for(;;){
+        if(poll_listen.revents == POLLIN){
+
+            new_fd = accept(listener,&client_address,&addr_len);
+            if(new_fd < 0){
+                perror("accept");
+                exit(EXIT_FAILURE);
+            }
+
+            pid_t child = fork();
+
+            if(child < 0){
+                perror("fork");
+            }
+            if(child == 0){
+                handle_client_connection(new_fd);
+                exit(EXIT_SUCCESS);
+            } else{
+                close(new_fd);
+                continue;
+            }
+
+
+
+        }
     }
 
 
