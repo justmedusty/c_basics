@@ -59,4 +59,5 @@ MemoryManagement.c
         Bitmasks.c
         UnixFileTransferStreamServer.c
         UnixFileTransferStreamClient.c
-        UnixRawNetworkLayerSocketServer.c)
+        UnixRawNetworkLayerSocketServer.c
+        UnixSpinLocks.c)
